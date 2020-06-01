@@ -12,6 +12,13 @@ import { AuthLayoutComponent } from './layouts/auth-layout/auth-layout.component
 
 import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
 
+// Angular Material Inputs
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
+import { MatInputModule } from '@angular/material/input';
+import { MatButtonModule } from '@angular/material/button';
+import { MatTabsModule } from '@angular/material/tabs';
+
 import { AppRoutingModule } from "./app-routing.module";
 import { ComponentsModule } from "./components/components.module";
 import { ForcastDashboardComponent } from './pages/forcast-dashboard/forcast-dashboard.component';
@@ -29,7 +36,12 @@ import { LoginComponent } from './pages/login/login.component';
     RouterModule,
     AppRoutingModule,
     ToastrModule.forRoot(),
-    ChartsModule
+    ChartsModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatInputModule,
+    MatButtonModule,
+    MatTabsModule
   ],
   declarations: [AppComponent, AdminLayoutComponent, AuthLayoutComponent, ForcastDashboardComponent, ReplenishmentDashboardComponent, UploadDashboardComponent, LoginComponent],
   providers: [],

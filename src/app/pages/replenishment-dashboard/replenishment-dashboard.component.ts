@@ -1,8 +1,14 @@
 import { Component, OnInit, NgModule } from '@angular/core';
 import { ApiService } from "../../services/api.service";
 import { Category } from "../../models/category/category";
+import { MatSelectModule } from '@angular/material/select';
 import * as XLSX from 'xlsx';
 
+@NgModule({
+  exports: [
+    MatSelectModule
+  ]
+})
 @Component({
   selector: 'app-replenishment-dashboard',
   templateUrl: './replenishment-dashboard.component.html',

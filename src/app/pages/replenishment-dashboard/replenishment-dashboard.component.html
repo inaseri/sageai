@@ -18,21 +18,54 @@
             </div>
             <div class="row form-row" *ngIf="filter_by_product">
               <div class="col">
-                <div class="form-group">
-                  <label>Products</label>
-                  <select>
-                    <option >s</option>
-                    <option >s</option>
-                    <option >s</option>
-                    <option >s</option>
-                  </select>
-                </div>
+                <mat-form-field>
+                  <mat-label>Select Product</mat-label>
+                  <mat-select required multiple>
+                    <mat-option *ngFor="let item of filter_by_products_list"
+                                [value]="item.product_id"
+                                (onSelectionChange)="on_change_product(item.product_id)"
+
+                    > {{item.title_fa}} </mat-option>
+                  </mat-select>
+                </mat-form-field>
               </div>
               <div class="col">
                 <div class="form-group">
                   <label>Product ID</label>
-                  <input type="tel" class="form-control">
+                  <input type="tel" class="form-control" [(ngModel)]="product_id" name="product_id">
                 </div>
+              </div>
+            </div>
+            <div class="row form-row" *ngIf="filter_by_category">
+              <div class="col">
+                <mat-form-field style="width: 100%;">
+                  <mat-label>Category L1</mat-label>
+                  <mat-select multiple>
+                    <mat-option *ngFor="let topping of parent_category"
+                                [value]="topping"
+                                (onSelectionChange)="selected_categories_2(topping.name, topping.value)"
+                    >{{topping.value}}</mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+              <div class="col">
+                <mat-form-field style="width: 100%;">
+                  <mat-label>Category L2</mat-label>
+                  <mat-select [disabled]="select_2_disable == 1"  multiple>
+                    <mat-option *ngFor="let topping of select_2_array"
+                                [value]="topping.value"
+                                (onSelectionChange)="selected_categories_3(topping.name, topping.value)"
+                    >{{topping.value}}</mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+              <div class="col">
+                <mat-form-field style="width: 100%;">
+                  <mat-label>Category L3</mat-label>
+                  <mat-select [disabled]="select_3_disable == 1" multiple>
+                    <mat-option *ngFor="let topping of select_3_array" [value]="topping">{{topping.value}}</mat-option>
+                  </mat-select>
+                </mat-form-field>
               </div>
             </div>
           </form>
