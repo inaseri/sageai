@@ -1,0 +1,89 @@
+
+<div class="content">
+  <div class=" row">
+    <div class=" col-md-12">
+      <div class="card">
+        <div class="card-header"><h5 class=" title">Filter</h5></div>
+        <div class="card-body">
+          <form>
+            <div class="row form-row">
+              <div class="col-4">
+                <div class=" form-group">
+                  <label>Select Product</label>
+                  <select [ngModel]="selectedDeviceObj" (ngModelChange)="on_change($event)" name="selectedDeviceObj" class="form-control">
+                    <option>Chose</option>
+                    <option *ngFor="let item of products"
+                            [ngValue]="item"
+                            class=" form-control" style="background: transparent; color: black">{{item.title_fa}}</option>
+                  </select>
+                </div>
+              </div>
+              <div class="col-4">
+                <div class=" form-group">
+                  <label>Product ID</label>
+                  <input [(ngModel)]="item_id" name="item_id" class="form-control">
+                </div>
+              </div>
+              <div class="col-4">
+                <div class=" form-group">
+                  <label>Confidence</label>
+                  <input [(ngModel)]="confidence" required type="number" step="0.01" min="-2" max="2" name="confidence" class="form-control">
+                </div>
+              </div>
+            </div>
+            <div class="row form-row">
+              <div class="col-4">
+                <div class=" form-group">
+                  <label> Start Date </label>
+                  <input [(ngModel)]="start_date" name="start_date" type="date" class="form-control">
+                </div>
+              </div>
+              <div class="col-4">
+                <div class=" form-group">
+                  <label>End Date</label>
+                  <input [(ngModel)]="end_date" name="end_date" type="date" class="form-control">
+                </div>
+              </div>
+              <div class="col-4">
+                <div class=" form-group">
+                  <label>&nbsp;</label>
+                  <button class="form-control" (click)="get_chart()"></button>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class=" row" *ngIf="showChart">
+    <div class=" col-12">
+      <div class=" card card-chart">
+        <div class=" card-header">
+          <div class="row">
+            <div class="col-sm-6 text-left">
+              <div class="card-header"><h5 class=" title">{{product_title}}</h5></div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col">
+              <canvas id="canvas"
+                      [chartType]="chartType"
+                      [datasets]="chartDatasets"
+                      [labels]="chartLabels"
+                      [colors]="chartColors"
+                      [options]="chartOptions"
+                      [legend]="true"
+                      (chartHover)="chartHovered($event)"
+                      (chartClick)="chartClicked($event)">
+              </canvas>
+            </div>
+          </div>
+        </div>
+        <div class=" card-body">
+          <div class=" chart-area"><canvas id="chartBig1"> </canvas></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
