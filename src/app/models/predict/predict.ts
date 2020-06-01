@@ -14,4 +14,5 @@ export class Predict {
   price: string;
   discount: string;
   supplier: string;
+  promotion: string;
 }

@@ -4,6 +4,7 @@ import { FormsModule } from "@angular/forms";
 import { HttpClientModule } from "@angular/common/http";
 import { RouterModule } from "@angular/router";
 import { ToastrModule } from 'ngx-toastr';
+import { ChartsModule } from "ng2-charts";
 
 import { AppComponent } from "./app.component";
 import { AdminLayoutComponent } from "./layouts/admin-layout/admin-layout.component";
@@ -27,7 +28,8 @@ import { LoginComponent } from './pages/login/login.component';
     NgbModule,
     RouterModule,
     AppRoutingModule,
-    ToastrModule.forRoot()
+    ToastrModule.forRoot(),
+    ChartsModule
   ],
   declarations: [AppComponent, AdminLayoutComponent, AuthLayoutComponent, ForcastDashboardComponent, ReplenishmentDashboardComponent, UploadDashboardComponent, LoginComponent],
   providers: [],

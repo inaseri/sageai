@@ -45,10 +45,8 @@
                 </div>
               </div>
               <div class="col-4">
-                <div class=" form-group">
                   <label>&nbsp;</label>
-                  <button class="form-control" (click)="get_chart()"></button>
-                </div>
+                  <button class="form-control btn btn-fill btn-danger" type="submit" (click)="get_chart()">Apply</button>
               </div>
             </div>
           </form>
@@ -58,8 +56,8 @@
   </div>
   <div class=" row" *ngIf="showChart">
     <div class=" col-12">
-      <div class=" card card-chart">
-        <div class=" card-header">
+      <div class="card card-chart">
+        <div class="card-header">
           <div class="row">
             <div class="col-sm-6 text-left">
               <div class="card-header"><h5 class=" title">{{product_title}}</h5></div>
@@ -68,6 +66,7 @@
           <div class="row">
             <div class="col">
               <canvas id="canvas"
+                      baseChart
                       [chartType]="chartType"
                       [datasets]="chartDatasets"
                       [labels]="chartLabels"
@@ -80,10 +79,84 @@
             </div>
           </div>
         </div>
-        <div class=" card-body">
-          <div class=" chart-area"><canvas id="chartBig1"> </canvas></div>
+      </div>
+    </div>
+  </div>
+  <div class="row" *ngIf="showChart">
+    <div class="card">
+      <div class="card-header"><h5 class=" title">Future</h5></div>
+      <div class="card-body">
+        <div *ngFor="let future_data of datesList">
+          <div class="row form-row">
+            <div class="col">
+              <div class="form-group">
+                <label>{{future_data.date}}</label>
+              </div>
+            </div>
+            <div class="col">
+              <div class=" form-group">
+                <label>Promotion</label>
+                <select [ngModel]="future_data.promotions"
+                        name="promotions" class="form-control"
+                        style="background: transparent; color: black">
+                  <option>Chose</option>
+                  <option value="1">Promotion</option>
+                  <option value="0">Incredible Offer</option>
+                </select>
+              </div>
+            </div>
+            <div class="col">
+              <div class="form-group">
+                <label>Discount</label>
+                <input [(ngModel)]="future_data.discount"
+                       (change)="change_inputs_future(future_data.date, future_data.daily_price,
+                                             future_data.discount, future_data.promotions)"
+                        class="form-control">
+              </div>
+            </div>
+            <div class="col">
+              <div class="form-group">
+                <label>Price (Rials)</label>
+                <input [(ngModel)]="future_data.daily_price"
+                       (change)="change_inputs_future(future_data.date, future_data.daily_price,
+                                             future_data.discount, future_data.promotions)"
+                        class="form-control">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="card-footer">
+        <div class="row form-row">
+          <div class="col">
+              <button class="form-control btn btn-fill btn-danger" type="submit" (click)="create_future()">
+                Update
+                <span class="spinner-border spinner-border-sm"></span>
+              </button>
+
+          </div>
+          <div class="col">
+            <div class="spinner-grow text-info" role="status">
+              <button class="form-control btn btn-fill btn-danger" type="submit" (click)="open(mymodal)">
+                Save</button>
+            </div>
+          </div>
         </div>
       </div>
     </div>
   </div>
+  <ng-template #mymodal let-modal id="modal-sage">
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title">Save changes</h4>
+      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        <span aria-hidden="true">×</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      Are you sure to want save this change?
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-outline-dark" (click)="save_future()">Save</button>
+    </div>
+  </ng-template>
 </div>

@@ -1,7 +1,8 @@
-import {Component, OnInit, NgModule} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import { ApiService } from "../../services/api.service";
 import { Predict } from "../../models/predict/predict";
 import { Product } from "../../models/product/product";
+import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-forcast-dashboard',
@@ -23,6 +24,7 @@ export class ForcastDashboardComponent implements OnInit {
   product_title: string;
   save: number;
   selectedDeviceObj: Product;
+  closeResult: string;
 
 
   public showChart = false;
@@ -82,7 +84,7 @@ export class ForcastDashboardComponent implements OnInit {
   public chartClicked(_e: any): void {}
   public chartHovered(_e: any): void {}
 
-  constructor (private apiService: ApiService) {
+  constructor (private apiService: ApiService, private modalService: NgbModal) {
     this.predict_data = new Predict();
   }
 
@@ -201,7 +203,6 @@ export class ForcastDashboardComponent implements OnInit {
         }
       }
     }
-    console.log('dict after remove is;:', this.dict)
     this.loading = true;
     this.apiService.get_future(this.item_id, this.confidence, this.dict, 0).subscribe(
       response => {
@@ -293,4 +294,21 @@ export class ForcastDashboardComponent implements OnInit {
     return response_results;
   }
 
+  open(content) {
+    this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {
+      this.closeResult = `Closed with: ${result}`;
+    }, (reason) => {
+      this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+    });
+  }
+
+  private getDismissReason(reason: any): string {
+    if (reason === ModalDismissReasons.ESC) {
+      return 'by pressing ESC';
+    } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
+      return 'by clicking on a backdrop';
+    } else {
+      return  `with: ${reason}`;
+    }
+  }
 }
