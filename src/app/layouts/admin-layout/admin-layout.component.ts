@@ -31,5 +31,12 @@ export class AdminLayoutComponent implements OnInit {
       body.classList.remove('white-content');
     }
   }
-  ngOnInit() {}
+  ngOnInit() {
+    var body = document.getElementsByTagName('body')[0];
+    var sidebar = document.getElementsByClassName('sidebar')[0];
+    var mainPanel = document.getElementsByClassName('main-panel')[0];
+    body.classList.add('white-content');
+    sidebar.setAttribute('data','primary');
+    mainPanel.setAttribute('data','primary');
+  }
 }

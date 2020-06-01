@@ -1,1 +1,57 @@
-<p>upload-dashboard works!</p>
+<div class="content">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="card">
+        <div class="card-header"><h5 class=" title">Upload</h5></div>
+        <div class="card-body">
+          <div class="row form-row">
+            <div class="col-4">
+              <div class="">
+                <label>Upload Historical Data</label>
+                <input type="file"
+                       id="file"
+                       (change)="handleHistoricalFileInput($event.target.files)"
+                       class="form-control">
+              </div>
+            </div>
+            <div class="col-4">
+              <div class="">
+                <label>Upload Event Data</label>
+                <input type="file"
+                       id="file2"
+                       (change)="handleHistoricalFileInput($event.target.files)"
+                       class="form-control">
+              </div>
+            </div>
+            <div class="col-4">
+              <div class="">
+                <label>Upload Product Data</label>
+                <input type="file"
+                       id="file3"
+                       (change)="handleHistoricalFileInput($event.target.files)"
+                       class="form-control">
+              </div>
+            </div>
+          </div>
+          <div class="row form-row" style="margin-top: 20px;">
+            <div class="col-4">
+              <button class="form-control btn btn-fill btn-danger" type="submit" (click)="uploadHistoricalFile()">
+                Upload Historical Data
+              </button>
+            </div>
+            <div class="col-4">
+              <button class="form-control btn btn-fill btn-danger" type="submit" (click)="uploadEventFile()">
+                Upload Event Data
+              </button>
+            </div>
+            <div class="col-4">
+              <button class="form-control btn btn-fill btn-danger" type="submit" (click)="uploadProductFile()">
+                Upload Product Data
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

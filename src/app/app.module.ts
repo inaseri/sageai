@@ -18,6 +18,7 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatTabsModule } from '@angular/material/tabs';
+import { MatSelectModule } from '@angular/material/select';
 
 import { AppRoutingModule } from "./app-routing.module";
 import { ComponentsModule } from "./components/components.module";
@@ -25,6 +26,7 @@ import { ForcastDashboardComponent } from './pages/forcast-dashboard/forcast-das
 import { ReplenishmentDashboardComponent } from './pages/replenishment-dashboard/replenishment-dashboard.component';
 import { UploadDashboardComponent } from './pages/upload-dashboard/upload-dashboard.component';
 import { LoginComponent } from './pages/login/login.component';
+import { FilterPipe } from './pipes/filter.pipe';
 
 @NgModule({
   imports: [
@@ -41,10 +43,12 @@ import { LoginComponent } from './pages/login/login.component';
     MatNativeDateModule,
     MatInputModule,
     MatButtonModule,
-    MatTabsModule
+    MatTabsModule,
+    MatSelectModule,
   ],
-  declarations: [AppComponent, AdminLayoutComponent, AuthLayoutComponent, ForcastDashboardComponent, ReplenishmentDashboardComponent, UploadDashboardComponent, LoginComponent],
+  declarations: [AppComponent, AdminLayoutComponent, AuthLayoutComponent, ForcastDashboardComponent, ReplenishmentDashboardComponent, UploadDashboardComponent, LoginComponent, FilterPipe],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  exports: [FilterPipe]
 })
 export class AppModule {}
