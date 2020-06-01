@@ -1,1 +1,43 @@
-<p>replenishment-dashboard works!</p>
+<div class="content">
+  <div class=" row">
+    <div class=" col-md-12">
+      <div class="card">
+        <div class="card-header"><h5 class=" title">Filter</h5></div>
+        <div class="card-body">
+          <form>
+            <div class="row form-row">
+              <div class="col"><button class="form-control btn btn-fill btn-danger" type="submit" (click)="filter(0)">
+                  Filter by category
+                </button>
+              </div>
+              <div class="col">
+                <button class="form-control btn btn-fill btn-danger" type="submit" (click)="filter(1)">
+                  Filter by product
+                </button>
+              </div>
+            </div>
+            <div class="row form-row" *ngIf="filter_by_product">
+              <div class="col">
+                <div class="form-group">
+                  <label>Products</label>
+                  <select>
+                    <option >s</option>
+                    <option >s</option>
+                    <option >s</option>
+                    <option >s</option>
+                  </select>
+                </div>
+              </div>
+              <div class="col">
+                <div class="form-group">
+                  <label>Product ID</label>
+                  <input type="tel" class="form-control">
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
