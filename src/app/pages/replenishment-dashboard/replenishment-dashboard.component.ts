@@ -31,7 +31,8 @@ export class ReplenishmentDashboardComponent implements OnInit {
   product_id: any[] = [];
   select_2_disable = 1;
   select_3_disable = 1;
-  select_1_array: any[] = [];
+  selectedOption1: any[] = [];
+  selectedOption2: any[] = [];
   select_2_array: any[] = [];
   select_3_array: any[] = [];
   product_data: any[] = [];
@@ -111,7 +112,7 @@ export class ReplenishmentDashboardComponent implements OnInit {
       this.select_2_disable = 0;
     }
     const dict: { name: string, value: string } = { name: name, value: value };
-    let dict2 = {}
+    let dict2 = {};
     this.apiService.get_children_categories(dict).subscribe(
       response => {
         for (const key in response) {
@@ -121,6 +122,7 @@ export class ReplenishmentDashboardComponent implements OnInit {
               name: response[key].name,
               value: response[key].value
             });
+            this.selectedOption1.push(response[key].value);
             dict2 = { name: response[key].name, value: response[key].value};
             this.apiService.get_children_categories(dict2).subscribe(
               response => {
@@ -131,6 +133,7 @@ export class ReplenishmentDashboardComponent implements OnInit {
                       name: response[key].name,
                       value: response[key].value
                     });
+                    this.selectedOption2.push(response[key].value)
                   }
                 }
               },

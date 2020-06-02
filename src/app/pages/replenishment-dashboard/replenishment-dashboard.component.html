@@ -55,7 +55,7 @@
                       <label>&nbsp;</label>
                       <mat-form-field style="width: 100%;">
                         <mat-label>Category L2</mat-label>
-                        <mat-select [disabled]="select_2_disable == 1"  multiple>
+                        <mat-select [disabled]="select_2_disable == 1"  multiple [value]="selectedOption1">
                           <mat-option *ngFor="let topping of select_2_array"
                                       [value]="topping.value"
                                       (onSelectionChange)="selected_categories_3(topping.name, topping.value)"
@@ -69,8 +69,10 @@
                       <label>&nbsp;</label>
                       <mat-form-field style="width: 100%;">
                         <mat-label>Category L3</mat-label>
-                        <mat-select multiple>
-                          <mat-option *ngFor="let topping of select_3_array" [value]="topping">{{topping.value}}</mat-option>
+                        <mat-select multiple [value]="selectedOption2">
+                          <mat-option *ngFor="let topping of select_3_array"
+                                      [value]="topping.value"
+                          >{{topping.value}}</mat-option>
                         </mat-select>
                       </mat-form-field>
                     </div>
