@@ -1,12 +1,14 @@
-import { Component, OnInit, NgModule } from '@angular/core';
+import { Component, OnInit, NgModule, ViewChild, ViewContainerRef } from '@angular/core';
 import { ApiService } from "../../services/api.service";
 import { Category } from "../../models/category/category";
 import { MatSelectModule } from '@angular/material/select';
+import { MatTabsModule } from '@angular/material/tabs';
 import * as XLSX from 'xlsx';
 
 @NgModule({
   exports: [
-    MatSelectModule
+    MatSelectModule,
+    MatTabsModule
   ]
 })
 @Component({
@@ -18,7 +20,6 @@ export class ReplenishmentDashboardComponent implements OnInit {
 
   head_title = ['Image', 'Product Name', 'Category', 'Days To Reorder', 'Reorder Amount'];
   fileName = 'ExcelSheet.xlsx';
-
   parent_category: Category;
   filter_by_products_list: any[] = [];
   max_level_cat: any;
@@ -30,6 +31,7 @@ export class ReplenishmentDashboardComponent implements OnInit {
   product_id: any[] = [];
   select_2_disable = 1;
   select_3_disable = 1;
+  select_1_array: any[] = [];
   select_2_array: any[] = [];
   select_3_array: any[] = [];
   product_data: any[] = [];
@@ -74,8 +76,9 @@ export class ReplenishmentDashboardComponent implements OnInit {
 
   }
 
-  filter(value: number) {
-    if (value == 1) {
+  filter($event) {
+    const value = [$event.index]
+    if (value[0] == 0) {
       this.filter_by_product = true;
       this.filter_by_category = false;
       this.showTable = false;
@@ -108,6 +111,7 @@ export class ReplenishmentDashboardComponent implements OnInit {
       this.select_2_disable = 0;
     }
     const dict: { name: string, value: string } = { name: name, value: value };
+    let dict2 = {}
     this.apiService.get_children_categories(dict).subscribe(
       response => {
         for (const key in response) {
@@ -117,6 +121,21 @@ export class ReplenishmentDashboardComponent implements OnInit {
               name: response[key].name,
               value: response[key].value
             });
+            dict2 = { name: response[key].name, value: response[key].value};
+            this.apiService.get_children_categories(dict2).subscribe(
+              response => {
+                for (const key in response) {
+                  // check if the property/key is defined in the object itself, not in parent
+                  if (response.hasOwnProperty(key)) {
+                    this.select_3_array.push({
+                      name: response[key].name,
+                      value: response[key].value
+                    });
+                  }
+                }
+              },
+              error => console.log('There is some problem: ', error)
+            );
           }
         }
       },
@@ -147,12 +166,9 @@ export class ReplenishmentDashboardComponent implements OnInit {
 
   get_product() {
     if (this.filter_by_category) {
-      if (this.select_2_disable == 0 && this.select_3_disable == 1) {
-        this.filtered_product = this.select_2_array;
-      }
-      if (this.select_3_disable == 0 && this.select_2_disable == 0) {
-        this.filtered_product = this.select_3_array;
-      }
+      console.log('select array 2', this.select_2_array)
+      console.log('select array 3',this.select_3_array)
+      this.filtered_product = this.select_3_array;
       this.apiService.filtered_products(this.filtered_product).subscribe(
         response => {
           this.product_data = response;
